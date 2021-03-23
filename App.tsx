@@ -1,6 +1,6 @@
 import { Picker } from "@react-native-picker/picker";
 import BottomSheet from "reanimated-bottom-sheet";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Button,
   Keyboard,
