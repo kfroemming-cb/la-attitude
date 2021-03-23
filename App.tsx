@@ -106,58 +106,18 @@ export default function App() {
   };
 
   return (
-    <>
-      <KeyboardAvoidingView
-        style={{
-          flexDirection: "column",
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-        behavior="padding"
-      >
-        <Text style={styles.title}>Timezone Lookup</Text>
-        <Text style={styles.field}>Timezone: {location}</Text>
-        <Text style={styles.field}>Local Time: {offsetTime}</Text>
-        <View style={{ flexDirection: "row" }}>
-          <TextInput
-            style={{ ...styles.field, ...styles.input }}
-            onChangeText={(v) => setLat(v)}
-            value={lat}
-            maxLength={10}
-            placeholder="latitude"
-            keyboardType="numeric"
-          />
-          <TextInput
-            style={{ ...styles.field, ...styles.input }}
-            onChangeText={(v) => setLng(v)}
-            maxLength={11}
-            value={lng}
-            placeholder="longitude"
-            keyboardType="numeric"
-          />
-        </View>
-        <View style={{ flexDirection: "row", marginTop: 36 }}>
-          <Button
-            title="Get Time Info"
-            onPress={submit}
-            disabled={
-              parseInt(lat, 10) < -90 ||
-              parseInt(lat, 10) > 90 ||
-              parseInt(lng) < -180 ||
-              parseInt(lng) > 180 ||
-              lng.length === 0 ||
-              lat.length === 0
-            }
-          />
-          <View style={{ margin: 10 }}></View>
-          <Button
-            onPress={() => sheetRef?.current?.snapTo(2)}
-            title="Open Samples"
-          />
-        </View>
-      </KeyboardAvoidingView>
-
+    <KeyboardAvoidingView
+      style={{
+        flexDirection: "column",
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+      behavior="padding"
+    >
+      <Text style={styles.title}>Timezone Lookup</Text>
+      <Text style={styles.field}>Timezone: {location}</Text>
+      <Text style={styles.field}>Local Time: {offsetTime}</Text>
       <BottomSheet
         enabledHeaderGestureInteraction
         renderHeader={() => (
@@ -186,9 +146,46 @@ export default function App() {
         borderRadius={10}
         ref={sheetRef}
         renderContent={renderPicker}
-        snapPoints={[0, 150, 300]}
+        snapPoints={[0, 300, 450]}
       />
-    </>
+      <View style={{ flexDirection: "row" }}>
+        <TextInput
+          style={{ ...styles.field, ...styles.input }}
+          onChangeText={(v) => setLat(v)}
+          value={lat}
+          maxLength={10}
+          placeholder="latitude"
+          keyboardType="numeric"
+        />
+        <TextInput
+          style={{ ...styles.field, ...styles.input }}
+          onChangeText={(v) => setLng(v)}
+          maxLength={11}
+          value={lng}
+          placeholder="longitude"
+          keyboardType="numeric"
+        />
+      </View>
+      <View style={{ flexDirection: "row", marginTop: 36 }}>
+        <Button
+          title="Get Time Info"
+          onPress={submit}
+          disabled={
+            parseInt(lat, 10) < -90 ||
+            parseInt(lat, 10) > 90 ||
+            parseInt(lng) < -180 ||
+            parseInt(lng) > 180 ||
+            lng.length === 0 ||
+            lat.length === 0
+          }
+        />
+        <View style={{ margin: 10 }}></View>
+        <Button
+          onPress={() => sheetRef?.current?.snapTo(2)}
+          title="Open Samples"
+        />
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
