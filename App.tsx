@@ -179,6 +179,7 @@ export default function App() {
             lat.length === 0
           }
         />
+        <View style={{ margin: 10 }}></View>
         <Button
           onPress={() => sheetRef?.current?.snapTo(2)}
           title="Open Samples"
