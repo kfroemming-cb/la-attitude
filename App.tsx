@@ -1,8 +1,9 @@
 import { Picker } from "@react-native-picker/picker";
 import BottomSheet from "reanimated-bottom-sheet";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Button,
+  Keyboard,
   KeyboardAvoidingView,
   StyleSheet,
   Text,
@@ -136,6 +137,7 @@ export default function App() {
               <Button
                 title="Done"
                 onPress={() => {
+                  Keyboard.dismiss();
                   sheetRef?.current?.snapTo(0);
                   populateForm();
                 }}
@@ -150,26 +152,26 @@ export default function App() {
       />
       <View style={{ flexDirection: "row" }}>
         <TextInput
-          style={{ ...styles.field, ...styles.input }}
-          onChangeText={(v) => setLat(v)}
-          value={lat}
-          maxLength={10}
-          placeholder="latitude"
           keyboardType="numeric"
+          maxLength={10}
+          onChangeText={(v) => setLat(v)}
+          onTouchStart={() => sheetRef?.current?.snapTo(0)}
+          placeholder="latitude"
+          style={{ ...styles.field, ...styles.input }}
+          value={lat}
         />
         <TextInput
-          style={{ ...styles.field, ...styles.input }}
-          onChangeText={(v) => setLng(v)}
-          maxLength={11}
-          value={lng}
-          placeholder="longitude"
           keyboardType="numeric"
+          maxLength={11}
+          onChangeText={(v) => setLng(v)}
+          onTouchStart={() => sheetRef?.current?.snapTo(0)}
+          placeholder="longitude"
+          style={{ ...styles.field, ...styles.input }}
+          value={lng}
         />
       </View>
-      <View style={{ flexDirection: "row", marginTop: 36 }}>
+      <View style={{ flexDirection: "row", marginTop: 28 }}>
         <Button
-          title="Get Time Info"
-          onPress={submit}
           disabled={
             parseInt(lat, 10) < -90 ||
             parseInt(lat, 10) > 90 ||
@@ -178,10 +180,15 @@ export default function App() {
             lng.length === 0 ||
             lat.length === 0
           }
+          title="Get Time Info"
+          onPress={submit}
         />
-        <View style={{ margin: 10 }}></View>
+        <View style={{ marginHorizontal: 10 }}></View>
         <Button
-          onPress={() => sheetRef?.current?.snapTo(2)}
+          onPress={() => {
+            sheetRef?.current?.snapTo(2);
+            Keyboard.dismiss();
+          }}
           title="Open Samples"
         />
       </View>
@@ -202,7 +209,7 @@ const styles = StyleSheet.create({
   },
   field: {
     fontSize: 18,
-    margin: 12,
+    margin: 10,
   },
   input: {
     borderWidth: 1,
