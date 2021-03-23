@@ -28,7 +28,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": "",
+    "description": "Non Prod Build",
     "githubUrl": "https://github.com/kfroemming/la-attitude"
   }
 }
